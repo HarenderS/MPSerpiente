@@ -6,8 +6,6 @@
 package mpserpiente;
 
 import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.Panel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JPanel;
@@ -16,31 +14,41 @@ import javax.swing.JPanel;
  *
  * @author Harender
  */
-public class Screen extends javax.swing.JFrame {
+public final class Screen extends javax.swing.JFrame implements KeyListener{
 
     /**
      * Creates new form Screen
      */
     JPanel matrix[][];
+    int x = 19;
+    int y = 29;
+    KeyEvent key;
     public Screen() {
+        super();
         initComponents();
         
-         matrix = new JPanel[40][60];
-       
+        matrix = new JPanel[40][60];
         
         
-        for(int i = 1; i<40; i++){
-            for(int j = 1; j<60; j++){
+        
+        for(int i = 0; i<40; i++){
+            for(int j = 0; j<60; j++){
                matrix[i][j] = new JPanel();
                panelScreen.add(matrix[i][j]);
+                matrix[i][j].setBackground(Color.WHITE);
             }
         }
-        matrix[1][1].setBackground(Color.red);
-        matrix[39][1].setBackground(Color.red);
-        matrix[1][59].setBackground(Color.red);
-        matrix[39][59].setBackground(Color.red);
-        matrix[19][29].setBackground(Color.red);
+        matrix[x][y].setBackground(Color.red);
+        addKeyListener(this);   
     }
+    
+    public void move(KeyEvent key){
+        
+        
+    }
+    
+    public void update(){
+            }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,17 +69,17 @@ public class Screen extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(panelScreen, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
-                .addGap(283, 283, 283))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelScreen, javax.swing.GroupLayout.DEFAULT_SIZE, 722, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(panelScreen, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
-                .addGap(233, 233, 233))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelScreen, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -115,5 +123,50 @@ public class Screen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel panelScreen;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void keyTyped(KeyEvent ke) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyPressed(KeyEvent ke) {
+        
+       switch(ke.getKeyCode()){
+            case KeyEvent.VK_LEFT:   //left
+                System.out.println("left");
+                x--;
+                matrix[x][y].setBackground(Color.red);
+                matrix[x++][y].setBackground(Color.WHITE);
+                break;
+            case KeyEvent.VK_RIGHT:   //rigth
+                System.out.println("Right");
+                x++;
+                matrix[x][y].setBackground(Color.red);
+                matrix[x--][y].setBackground(Color.WHITE);
+            break;
+            case KeyEvent.VK_UP:   //up
+                System.out.println("Up");
+                y--;
+                matrix[x][y].setBackground(Color.red);
+                matrix[x][y++].setBackground(Color.WHITE);
+
+                
+            break;
+            case KeyEvent.VK_DOWN:   //down
+                System.out.println("Down");
+                y++;
+                matrix[x][y].setBackground(Color.red);
+                matrix[x][y--].setBackground(Color.WHITE);
+                
+            break;
+            
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent ke) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }
